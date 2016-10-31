@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :phoenix_demo, PhoenixDemo.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
+  username: System.get_env("USER"),
   password: "postgres",
   database: "phoenix_demo_test",
   hostname: "localhost",
