@@ -16,7 +16,8 @@ defmodule PhoenixDemo.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
-    changeset = Post.changeset(%Post{}, post_params)
+    changeset = Post.changeset(
+      %Post{user_id: conn.assigns[:current_user].id}, post_params)
 
     case Repo.insert(changeset) do
       {:ok, _post} ->
