@@ -3,6 +3,8 @@ defmodule PhoenixDemo.UserController do
 
   alias PhoenixDemo.User
 
+  plug Plugs.Authentication when not action in [:new, :create]
+
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)

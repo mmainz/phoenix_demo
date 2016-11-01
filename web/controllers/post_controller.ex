@@ -3,6 +3,8 @@ defmodule PhoenixDemo.PostController do
 
   alias PhoenixDemo.Post
 
+  plug Plugs.Authentication
+
   def index(conn, _params) do
     posts = Repo.all(Post)
     render(conn, "index.html", posts: posts)
