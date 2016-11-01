@@ -20,6 +20,12 @@ defmodule PhoenixDemo.SessionController do
     end
   end
 
+  def destroy(conn, _params) do
+    conn
+    |> delete_session(:current_user)
+    |> redirect(to: "/")
+  end
+
   defp authenticate(nil, _), do: {:error, :no_user}
   defp authenticate(user, password_hash) do
     if user.password_hash == password_hash do

@@ -23,6 +23,7 @@ defmodule PhoenixDemo.Router do
     get "/signup", UserController, :new
     get "/login", SessionController, :new
     post "/login", SessionController, :create
+    delete "/logout", SessionController, :destroy
   end
 
   # Other scopes may use custom stacks.
