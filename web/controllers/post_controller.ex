@@ -20,8 +20,11 @@ defmodule PhoenixDemo.PostController do
       %Post{user_id: conn.assigns[:current_user].id}, post_params)
 
     case Repo.insert(changeset) do
-      {:ok, _post} ->
-        PhoenixDemo.Endpoint.broadcast!("feed:lobby", "new_post", %{})
+      {:ok, post} ->
+        post_html = Phoenix.View.render_to_string(
+          PhoenixDemo.PostView, "post_row.html", post: post, conn: conn)
+        PhoenixDemo.Endpoint.broadcast!(
+          "feed:lobby", "new_post", %{html: post_html})
 
         conn
         |> put_flash(:info, "Post created successfully.")

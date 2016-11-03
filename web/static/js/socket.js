@@ -60,7 +60,11 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 if (location.pathname === "/posts") {
-  channel.on("new_post", payload => { location.reload() })
+  channel.on("new_post", payload => {
+    var template = document.createElement('template')
+    template.innerHTML = payload.html
+    document.getElementsByTagName("tbody")[0].appendChild(template.content.firstChild)
+  })
 }
 
 export default socket
