@@ -21,9 +21,12 @@ defmodule PhoenixDemo.PostController do
 
     case Repo.insert(changeset) do
       {:ok, _post} ->
+        PhoenixDemo.Endpoint.broadcast!("feed:lobby", "new_post", %{})
+
         conn
         |> put_flash(:info, "Post created successfully.")
         |> redirect(to: post_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
